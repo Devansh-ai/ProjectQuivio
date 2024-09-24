@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View } from 'react-native'
-//import Routes from './source/routes/index'
+
 import Splash from './source/Screens/Splash'
 import Routes from './source/routes'
 import Tutorial from './source/Screens/Tutorial'
