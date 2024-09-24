@@ -12,18 +12,9 @@ import Verifyotp from './source/Screens/Verifyotp'
 export default class App extends Component {
   render() {
     return (
-      // <View>
-
-        // <Tutorial/>
-      //   {/* <Splash/> */}
-
-      // </View>
+    
         <Routes/>
-        // <AddPhone/>
-        // <ResetPassword/>
-        // <Verifyotp/>
-        // <LoginPage/>
-        // <ForgotPassword/>
+       
         
     )
   }
