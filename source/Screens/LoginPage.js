@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, Image, FlatList, TouchableOpacity, Animated, Modal, KeyboardAvoidingView, Platform } from 'react-native'
+import { Text, StyleSheet, View, Image, FlatList, TouchableOpacity, Animated, Modal, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } from 'react-native'
 import { Icons } from '../Assets'
+import {StringAll} from '../Components/Strings'
 import { NavigationContainer } from '@react-navigation/native';
 
 import Textinput from '../Components/Textinput'
@@ -68,18 +69,29 @@ export default class LoginPage extends Component {
             erremail: "",
             showSuccess: false,
             toastOpacity: new Animated.Value(0),
+            trackCred: 0
         };
     }
     handlesubmit = () => {
         //console.log(this.validateemail);
         //console.log(this.validatepass);
-
+        const {trackCred} = this.state
         if (this.validateemail() && this.validatepass()) {
             //const { showSuccess} = this.state;
             // console.log('>>>>>>>>>>>>>')
-            this.props.navigation.navigate('BottomBar')
-            // this.setState({ showSuccess:true })
-
+            this.props.navigation.replace('BottomBar')
+        }
+        else{
+            if(trackCred>=3){
+                
+            this.setState({ showSuccess:true })
+            }
+            else{
+                this.showToast()
+                this.setState(prevState=>({
+                    trackCred:prevState.trackCred+1   
+                }))
+            }
         }
     }
     validatepass = () => {
@@ -125,6 +137,24 @@ export default class LoginPage extends Component {
         })
         this.validateemail();
     }
+    showToast = () => {
+        this.setState({ toastOpacity: new Animated.Value(1) }, () => {
+            Animated.timing(this.state.toastOpacity, {
+                toValue: 1,
+                duration: 300,
+                useNativeDriver: true,
+            }).start();
+    
+            setTimeout(() => {
+                Animated.timing(this.state.toastOpacity, {
+                    toValue: 0,
+                    duration: 300,
+                    useNativeDriver: true,
+                }).start();
+            }, 3000);
+        });
+    };
+    
     onChangePassword = (text) => {
         this.setState({
             password: text
@@ -139,6 +169,9 @@ export default class LoginPage extends Component {
                 style={styles.leftcomp}
             />
         )
+    }
+    toggleModal=()=>{
+        this.setState({showSuccess:!this.state.showSuccess})
     }
 
     rightComp = () => {
@@ -171,12 +204,12 @@ export default class LoginPage extends Component {
             <KeyboardAvoidingView
                 style={styles.container}
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}
-            >
+                // keyboardVerticalOffset={100}
+                >
                 <View style={styles.upper}>
-                    {/* <Animated.View style={[styles.toast, { opacity: this.state.toastOpacity }]}>
-                        <Text style={styles.toastText}>Email not found. Contact admin.</Text>
-                    </Animated.View> */}
+                    <Animated.View style={[styles.toast, { opacity: this.state.toastOpacity }]}>
+                        <Text style={styles.toastText}>{StringAll.emailErrorToast}</Text>
+                    </Animated.View>
                     <Image
                         style={styles.logo}
                         resizeMode='contain'
@@ -194,7 +227,7 @@ export default class LoginPage extends Component {
                     </Text>
                     <Text style={styles.assistant}>
 
-                    Your Personal CarWash Assistant
+                    {StringAll.carWash}
                     </Text>
                     <FlatList
                         data={data}
@@ -262,12 +295,14 @@ export default class LoginPage extends Component {
                     </View>
 
                 </View>
-
+                   
                 <Modal
                     visible={this.state.showSuccess}
                     transparent={true}
                     animationType="slide"
+                    
                 >
+                     <TouchableWithoutFeedback onPress={this.toggleModal}> 
                     <View style={styles.modalContainer}>
                         <View style={styles.modalContent}>
                             <Image
@@ -280,7 +315,7 @@ export default class LoginPage extends Component {
                                 <Text style={styles.modaltxt}>Your new password has been updated successfully.</Text>
                             </View>
                             <TouchableOpacity
-                                onPress={() => this.navigation("ResetPassword")}
+                                // onPress={() => this.navigation("ResetPassword")}
                                 style={styles.modalButton}
                             // onPress={() => this.setState({ showSuccess: false })}
                             >
@@ -288,7 +323,9 @@ export default class LoginPage extends Component {
                             </TouchableOpacity>
                         </View>
                     </View>
+                    </TouchableWithoutFeedback>
                 </Modal>
+               
             </KeyboardAvoidingView>
         )
     }
@@ -484,5 +521,20 @@ const styles = StyleSheet.create({
     lower: {
         flex: 0.57,
         backgroundColor: '#e7edf3',
+    },
+    toast: {
+        position: 'absolute',
+        top: 40,
+        left: 20,
+        right: 20,
+        backgroundColor: '#D32F2F',
+        padding: 10,
+        marginTop: 20,
+        borderRadius: 5,
+        zIndex: 1,
+    },
+    toastText: {
+        color: 'white',
+        textAlign: 'center',
     },
 })

@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, Image } from 'react-native'
+import { Text, StyleSheet, View, Image, Dimensions } from 'react-native'
 import { TextInput } from 'react-native-paper'
 
-
+const SCREEN_WIDTH=Dimensions.get('window').width;
 
 export default class Textinput extends Component {
   constructor(props) {
     super(props)
   }
+
 
   render() {
     const element = <TextInput.Icon name='pencil' />
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
   textin: {
     borderRadius: 8,
     backgroundColor: 'white',
-    width: 345,
+    width: SCREEN_WIDTH*0.85,
     height: 60,
     marginHorizontal: '7%',
     // padding:'8%',

@@ -24,6 +24,8 @@ class ForgotPassword extends Component {
         return re.test(String(email).toLowerCase());
     }
 
+    
+
     handleEmailChange = (text) => {
         const isValid = this.validateEmail(text) || text === '';
         this.setState({
