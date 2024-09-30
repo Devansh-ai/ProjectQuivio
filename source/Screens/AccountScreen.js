@@ -1,4 +1,4 @@
-import { Text, StyleSheet, View, Image, Dimensions, TouchableOpacity, Modal, Pressable } from 'react-native';
+import { Text, StyleSheet, View, Image, Dimensions, TouchableOpacity, Modal, Pressable, ScrollView } from 'react-native';
 import React, { Component } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StringAcc } from '../Components/Strings';
@@ -18,7 +18,9 @@ export default class AccountScreen extends Component {
       resourcePath: '',
       selectedStartDate: null,
       isModalVisible: false,
-      isModalVisible1: false
+      isModalVisible1: false,
+      isModalGenderVisible:false,
+      gender:'',
     };
     this.onDateChange = this.onDateChange.bind(this);
   }
@@ -68,6 +70,12 @@ export default class AccountScreen extends Component {
       isModalVisible: false,
     });
   }
+  onGenderChange(data){
+    this.setState({
+      gender:data,
+      isModalGenderVisible:false,
+    })
+  }
 
   toggleModal = () => {
     this.setState({ isModalVisible: !this.state.isModalVisible });
@@ -86,9 +94,12 @@ export default class AccountScreen extends Component {
       </TouchableOpacity>
     );
   }
+  toggleModalGender = () => {
+    this.setState({ isModalGenderVisible: !this.state.isModalGenderVisible });
+  };
   rightCompGender = () => {
     return (
-      <TouchableOpacity >
+      <TouchableOpacity onPress={this.toggleModalGender} >
         <Image
           source={Icons.arrow}
           style={styles.arrow}
@@ -103,6 +114,7 @@ export default class AccountScreen extends Component {
 
     return (
       <SafeAreaView>
+      <ScrollView>
         <View>
           <Text style={styles.head}>
             {StringAcc.head}
@@ -124,7 +136,7 @@ export default class AccountScreen extends Component {
           />
           }
          
-          <View style={{ flexDirection: 'column', marginTop: '20%', marginLeft: '4%' }}>
+          <View style={styles.profileText}>
             <Text style={styles.profPic}>
               {StringAcc.profRight1}
             </Text>
@@ -151,6 +163,7 @@ export default class AccountScreen extends Component {
         <TextinputOutlined
           text={"Gender"}
           rightComp={this.rightCompGender}
+          value={this.state.gender}
 
         />
         <TextinputOutlined
@@ -174,7 +187,7 @@ export default class AccountScreen extends Component {
         // onRequestClose={this.toggleModal}
 
         >
-          <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+          <Pressable onPress={this.toggleModal} style={{ alignItems: 'center', justifyContent: 'center' }}>
 
 
             <View style={styles.modalContainer}>
@@ -187,7 +200,36 @@ export default class AccountScreen extends Component {
                 </TouchableOpacity>
               </View>
             </View>
-          </View>
+          </Pressable>
+        </Modal>
+        <Modal
+          transparent={true}
+          animationType="slide"
+          visible={this.state.isModalGenderVisible}
+        // onRequestClose={this.toggleModal}
+
+        >
+          <Pressable onPress={this.toggleModalGender} style={styles.modalPressableGender}>
+
+
+            <View style={styles.modalGenderContainer}>
+              <View style={styles.modalGender} >
+                <TouchableOpacity onPress={()=>{this.onGenderChange('Male')}} style={styles.genderTouchable}>
+                  <Text style={styles.genderText}>
+                    Male
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.genderTouchable} onPress={()=>{this.onGenderChange('Female')}}>
+                  <Text style={styles.genderText}>
+                    Female
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity  onPress={this.toggleModalGender} style={styles.modalButton}>
+                  <Text style={styles.closeButton}>Close</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Pressable>
         </Modal>
 
         <Modal
@@ -198,7 +240,7 @@ export default class AccountScreen extends Component {
         >
           <Pressable onPress={this.toggleModal1} style={styles.modal1press} >
 
-            <View style={{ backgroundColor: 'white' ,height : '50%' , justifyContent : 'flex-start', borderRadius : 15}}>
+            <View style={styles.modalUploadContent}>
               <View>
                 <Text style={styles.modalhead}>
                   Profile Photo
@@ -206,10 +248,10 @@ export default class AccountScreen extends Component {
               </View>
 
               <TouchableOpacity onPress={this.uploadImageFromGallery}>
-                <View style={{ backgroundColor: '#F6F9FA', padding: 20, marginHorizontal: 20, borderRadius: 16, marginTop: 20, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                <View style={styles.modalButtonTopView}>
                   <View style={{ flexDirection: 'row' }}>
-                    <Image source={Icons.galleryUpload} style={{ height: 44, width: 44 }} />
-                    <Text style={{ alignSelf: 'center', fontSize: 16, fontWeight: '500', marginLeft: 20 }}>Upload From the Gallery</Text>
+                    <Image source={Icons.galleryUpload} style={styles.modalIcon1} />
+                    <Text style={styles.modalButtonText}>Upload From the Gallery</Text>
                   </View>
 
                   <Image source={Icons.arrow} />
@@ -217,10 +259,10 @@ export default class AccountScreen extends Component {
               </TouchableOpacity>
 
               <TouchableOpacity onPress={this.useCamera}>
-                <View style={{ backgroundColor: '#F6F9FA', padding: 20, marginHorizontal: 20, borderRadius: 16, marginTop: 20, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                <View style={styles.modalButtonTopView}>
                   <View style={{ flexDirection: 'row' }}>
-                    <Image source={Icons.cameraUpload} style={{ height: 44, width: 44 }} />
-                    <Text style={{ alignSelf: 'center', fontSize: 16, fontWeight: '500', marginLeft: 20 }}>Use Camera</Text>
+                    <Image source={Icons.cameraUpload} style={styles.modalIcon1} />
+                    <Text style={styles.modalButtonText}>Use Camera</Text>
                   </View>
 
                   <Image source={Icons.arrow} />
@@ -228,10 +270,10 @@ export default class AccountScreen extends Component {
               </TouchableOpacity>
 
               <TouchableOpacity>
-                <View style={{ backgroundColor: '#F6F9FA', padding: 20, marginHorizontal: 20, borderRadius: 16, marginTop: 20, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                <View style={styles.modalButtonTopView}>
                   <View style={{ flexDirection: 'row' }}>
-                    <Image source={Icons.avatarUpload} style={{ height: 44, width: 44 }} />
-                    <Text style={{ alignSelf: 'center', fontSize: 16, fontWeight: '500', marginLeft: 20 }}>Select an Avatar</Text>
+                    <Image source={Icons.avatarUpload} style={styles.modalIcon1} />
+                    <Text style={styles.modalButtonText}>Select an Avatar</Text>
                   </View>
 
                   <Image source={Icons.arrow} />
@@ -249,12 +291,77 @@ export default class AccountScreen extends Component {
 
 
         </Modal>
+      </ScrollView>
       </SafeAreaView>
+      
+      
+
+
     );
   }
 }
 
 const styles = StyleSheet.create({
+  profileText: {
+    flexDirection: 'column',
+    marginTop: '20%',
+    marginLeft: '4%',
+  },
+  modalButtonText: {
+    alignSelf: 'center',
+    fontSize: 16,
+    fontWeight: '500',
+    marginLeft: 20,
+  },
+  modalIcon1: {
+    height: 44,
+    width: 44,
+  },
+  modalButtonTopView: {
+    backgroundColor: '#F6F9FA',
+    padding: 20,
+    marginHorizontal: 20,
+    borderRadius: 16,
+    marginTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  modalUploadContent: {
+    backgroundColor: 'white',
+    height : SCREEN_HEIGHT*0.6,
+    justifyContent : 'flex-start',
+    borderRadius : 15,
+  },
+  genderText: {
+    color : 'white',
+    alignSelf:'center',
+    fontSize:18,
+  },
+  genderTouchable: {
+    padding : 15,
+    backgroundColor :'#2a7bbb',
+    margin:10,
+    borderRadius: 16,
+    width : '80%',
+  },
+  modalGender: {
+    width :'100%',
+    alignItems : 'center',
+  },
+  modalPressableGender: {
+    flex:1,
+    backgroundColor : 'rgba(0,0,0,0.5)',
+    justifyContent: 'flex-end',
+    bottom : 0,
+  },
+  modalGenderContainer: {
+    height : '25%',
+    backgroundColor : 'white',
+    width : '100%',
+    bottom : 0,
+    alignItems: 'center',
+  },
   arrow:{
     right: 60,
     top: '50%',
@@ -326,7 +433,7 @@ const styles = StyleSheet.create({
     // margin:20,
     // padding:20,
     marginTop: '107%',
-
+   // marginBottom:0,
     width: '100%'
   },
   calendarContainer: {
@@ -343,7 +450,7 @@ const styles = StyleSheet.create({
   closeButton: {
     marginTop: 20,
     color: '#EE28A9',
-    textAlign: 'center',
+   //textAlign: 'center',
     fontSize: 16,
     // backgroundColor:'blue',
   },
