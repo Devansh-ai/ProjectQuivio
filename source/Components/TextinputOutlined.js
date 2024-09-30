@@ -12,7 +12,7 @@ export default class Textinput extends Component {
 
   render() {
     const element = <TextInput.Icon name='pencil' />
-    const { leftIcon, rightIcon,value, onChangeText, error, securetextentry, type, rightComp, onSubmitEditing,placeholder, leftComp } = this.props
+    const { leftIcon, rightIcon,value,onFocus, onChangeText, error, securetextentry, type, rightComp, onSubmitEditing,placeholder, leftComp } = this.props
     return (
       <View style={styles.container}>
        {/* {leftComp && leftComp()
@@ -36,8 +36,9 @@ export default class Textinput extends Component {
             label={this.props.text}
             mode='outlined'
             value={value}
+            onFocus={onFocus}
            // placeholder={this.props.placeholder}
-            placeholder={this.props.text}
+           // placeholder={this.props.text}
             underlineColor='transparent'
             outlineColor='#e7ebf3'
            // right={rightComp}
