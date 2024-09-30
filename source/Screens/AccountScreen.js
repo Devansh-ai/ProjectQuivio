@@ -175,16 +175,16 @@ export default class AccountScreen extends Component {
             </View>
           </View>
           <TextinputOutlined
-            text={"Name"}
+            text={StringAcc.nameBox}
 
           />
           <TextinputOutlined
-            text={"Username"}
+            text={StringAcc.userBox}
 
           />
           <TextinputOutlined
             rightComp={this.rightComp}
-            text={"Birthday"}
+            text={StringAcc.birthBox}
             value={startDate || "10/10/1998"}
           />
           {/* <TouchableWithoutFeedback style={{backgroundColor:'red',zIndex:1,top:90,}}>
@@ -195,7 +195,7 @@ export default class AccountScreen extends Component {
 
 
           <TextinputOutlined
-            text={"Gender"}
+            text={StringAcc.genderBox}
             rightComp={this.rightCompGender}
             value={this.state.gender}
             onFocus={this.toggleModalGender}
@@ -203,17 +203,17 @@ export default class AccountScreen extends Component {
 
           />
           <TextinputOutlined
-            text={"Phone Number"}
+            text={StringAcc.phoneBox}
 
 
           />
           <TextinputOutlined
-            text={'Email ID'}
+            text={StringAcc.emailBox}
 
           />
 
           <Button1
-            text={'Update'}
+            text={StringAcc.submitButton}
           />
 
 
@@ -253,16 +253,16 @@ export default class AccountScreen extends Component {
                 <View style={styles.modalGender} >
                   <TouchableOpacity onPress={() => { this.onGenderChange('Male') }} style={styles.genderTouchable}>
                     <Text style={styles.genderText}>
-                      Male
+                      {StringAcc.gender1}
                     </Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.genderTouchable} onPress={() => { this.onGenderChange('Female') }}>
                     <Text style={styles.genderText}>
-                      Female
+                    {StringAcc.gender2}
                     </Text>
                   </TouchableOpacity>
                   <TouchableOpacity onPress={this.toggleModalGender} style={styles.modalButton}>
-                    <Text style={styles.closeButton}>Close</Text>
+                    <Text style={styles.closeButton}>{StringAcc.genderHideButton}</Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -280,7 +280,7 @@ export default class AccountScreen extends Component {
               <View style={styles.modalUploadContent}>
                 <View>
                   <Text style={styles.modalhead}>
-                    Profile Photo
+                   {StringAcc.modalHeadProfile}
                   </Text>
                 </View>
 
@@ -288,7 +288,7 @@ export default class AccountScreen extends Component {
                   <View style={styles.modalButtonTopView}>
                     <View style={{ flexDirection: 'row' }}>
                       <Image source={Icons.galleryUpload} style={styles.modalIcon1} />
-                      <Text style={styles.modalButtonText}>Upload From the Gallery</Text>
+                      <Text style={styles.modalButtonText}>{StringAcc.modalButton1}</Text>
                     </View>
 
                     <Image source={Icons.arrow} />
@@ -299,7 +299,7 @@ export default class AccountScreen extends Component {
                   <View style={styles.modalButtonTopView}>
                     <View style={{ flexDirection: 'row' }}>
                       <Image source={Icons.cameraUpload} style={styles.modalIcon1} />
-                      <Text style={styles.modalButtonText}>Use Camera</Text>
+                      <Text style={styles.modalButtonText}>{StringAcc.modalButton2}</Text>
                     </View>
 
                     <Image source={Icons.arrow} />
@@ -310,7 +310,7 @@ export default class AccountScreen extends Component {
                   <View style={styles.modalButtonTopView}>
                     <View style={{ flexDirection: 'row' }}>
                       <Image source={Icons.avatarUpload} style={styles.modalIcon1} />
-                      <Text style={styles.modalButtonText}>Select an Avatar</Text>
+                      <Text style={styles.modalButtonText}>{StringAcc.modalButton3}</Text>
                     </View>
 
                     <Image source={Icons.arrow} />
