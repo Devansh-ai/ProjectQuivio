@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform, Modal, Animated, Image } from 'react-native';
-
+import { StringForget } from '../Components/Strings';
 import { Icons } from '../Assets';
 
 

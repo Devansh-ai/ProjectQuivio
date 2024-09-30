@@ -29,6 +29,12 @@ const Icons = {
     timeIcon: require('./images/timeIcon.png'),
     completeSetupIcon: require('./images/completeSetupIcon.png'),
     getBackImg: require('./images/getBackImg.png'),
+    profilePhoto: require('./images/profilePhoto.png'),
+    calender: require('./images/calender.png'),
+    galleryUpload: require('./images/galleryUpload.png'),
+    cameraUpload: require('./images/cameraUpload.png'),
+    avatarUpload: require('./images/avatarUpload.png'),
+    arrow: require('./images/arrow.png'),
     
     homeSelected: require('./images/homeSelected.png'),
     accountSelected: require('/Users/ai/Appinventiv/ProjectQuivio/source/Assets/images/accountSelected.png'),

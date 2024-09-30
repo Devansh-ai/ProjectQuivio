@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View, Image, FlatList, TouchableOpacity, Animated, Modal, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } from 'react-native'
 import { Icons } from '../Assets'
-import {StringAll} from '../Components/Strings'
+import {StringLogin} from '../Components/Strings'
 import { NavigationContainer } from '@react-navigation/native';
 
 import Textinput from '../Components/Textinput'
@@ -10,61 +10,49 @@ import Button1 from '../Components/Button1'
 const data = [
     {
         img: Icons.vector1,
-        Text: 'Aesthetical Graphics'
+        Text: StringLogin.flatAes
     },
     {
         img: Icons.vector2,
-        Text: 'Realtime Statistics'
+        Text: StringLogin.flatReal
     },
     {
         img: Icons.vector3,
-        Text: 'Track Equipment Usage'
+        Text: StringLogin.flatTrack
     },
     {
         img: Icons.vector1,
-        Text: 'Aesthetical Graphics'
+        Text: StringLogin.flatAes
     },
     {
         img: Icons.vector2,
-        Text: 'Realtime Statistics'
+        Text: StringLogin.flatReal
     },
     {
         img: Icons.vector3,
-        Text: 'Track Equipment Usage'
+        Text: StringLogin.flatTrack
     },
     {
         img: Icons.vector1,
-        Text: 'Aesthetical Graphics'
+        Text: StringLogin.flatAes
     },
     {
         img: Icons.vector2,
-        Text: 'Realtime Statistics'
+        Text: StringLogin.flatReal
     },
     {
         img: Icons.vector3,
-        Text: 'Track Equipment Usage'
+        Text: StringLogin.flatTrack
     },
-
-    {
-        img: Icons.vector1,
-        Text: 'Aesthetical Graphics'
-    },
-    {
-        img: Icons.vector2,
-        Text: 'Realtime Statistics'
-    },
-    {
-        img: Icons.vector3,
-        Text: 'Track Equipment Usage'
-    },]
+    ]
 
 export default class LoginPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             securetextentry: true,
-            email: "",
-            password: "",
+            email: "sdsc@wd.sdcwd",
+            password: "11111111111",
             errPassword: "",
             erremail: "",
             showSuccess: false,
@@ -208,7 +196,7 @@ export default class LoginPage extends Component {
                 >
                 <View style={styles.upper}>
                     <Animated.View style={[styles.toast, { opacity: this.state.toastOpacity }]}>
-                        <Text style={styles.toastText}>{StringAll.emailErrorToast}</Text>
+                        <Text style={styles.toastText}>{StringLogin.emailErrorToast}</Text>
                     </Animated.View>
                     <Image
                         style={styles.logo}
@@ -227,7 +215,7 @@ export default class LoginPage extends Component {
                     </Text>
                     <Text style={styles.assistant}>
 
-                    {StringAll.carWash}
+                    {StringLogin.carWash}
                     </Text>
                     <FlatList
                         data={data}
@@ -245,10 +233,10 @@ export default class LoginPage extends Component {
                 </View>
                 <View style={styles.lower}>
                     <Text style={styles.head}>
-                        Sign in
+                        {StringLogin.signIn}
                     </Text>
                     <Text style={styles.subhead}>
-                        with your valid credentials
+                        {StringLogin.signBottom}
                     </Text>
                     <View style={styles.inpbox}>
 
@@ -258,14 +246,14 @@ export default class LoginPage extends Component {
 
                             error={this.state.erremail}
                             onChangeText={this.onChangeEmail}
-                            text={"Email Address"} />
+                            text={StringLogin.placeEmail} />
 
                         {/* <Image
                             source={Icons.email}
                             style={styles.img3}
                             /> */}
                     </View>
-                    {this.state.erremail && <Text style={{ color: 'red', marginLeft: '10%', }}>Invalid email address entered</Text>}
+                    {this.state.erremail && <Text style={{ color: 'red', marginLeft: '10%', }}>{StringLogin.emailError}</Text>}
                     <View style={styles.inpbox}>
                         <Textinput
                             type='password'
@@ -275,7 +263,7 @@ export default class LoginPage extends Component {
                             securetextentry={this.state.securetextentry}
                             error={this.state.errPassword}
                             onChangeText={this.onChangePassword}
-                            text={"Password"}
+                            text={StringLogin.placePass}
                         />
 
                         {/* <Image
@@ -283,15 +271,15 @@ export default class LoginPage extends Component {
                             style={styles.img3}
                         /> */}
                     </View>
-                    {this.state.errPassword && <Text style={styles.passworderror}>Invalid Password</Text>}
+                    {this.state.errPassword && <Text style={styles.passworderror}>{StringLogin.passError}</Text>}
                     <TouchableOpacity style={styles.forget} onPress={() => (this.props.navigation.navigate("ForgotPassword"))}>
                         <Text >
-                            Forgot Password
+                            {StringLogin.forgot}
                         </Text>
                     </TouchableOpacity>
                     <View style={styles.button}>
 
-                        <Button1 onPress={this.handlesubmit} text={"Primary"} />
+                        <Button1 onPress={this.handlesubmit} text={StringLogin.buttonText} />
                     </View>
 
                 </View>
